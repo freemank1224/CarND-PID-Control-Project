@@ -24,8 +24,7 @@ void PID::Init(double kp, double ki, double kd) {
 
 void PID::UpdateError(double cte) {
 
-	static double cte_last;
-	d_error = cte - cte_last;
+	d_error = cte - cte_prev;
 	//d_error = cte - cte_prev;
 
 	// Anti-saturateion of integral channel 
@@ -41,11 +40,15 @@ void PID::UpdateError(double cte) {
 
 	p_error = cte;
 
-	cte_last = cte;
-	//cte_prev = cte;
+	cte_prev = cte;
 }
 
-double PID::TotalError() {
+double PID::Control(double err_p, double err_i, double err_d){
 
+	double output;
+
+	output = Kp * err_p + Ki * err_i + Kd * err_d;
 }
+
+
 

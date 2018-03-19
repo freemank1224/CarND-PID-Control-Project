@@ -39,10 +39,7 @@ public:
   */
   void UpdateError(double cte);
 
-  /*
-  * Calculate the total PID error.
-  */
-  double TotalError();
+  double Control(double err_p, double err_i, double err_d);
 
 };
 

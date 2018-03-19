@@ -36,7 +36,7 @@ int main()
   PID pid2;
   // TODO: Initialize the pid variable.
   
-  pid.Init(0.09, 0.00002, 0.0001);
+  pid.Init(-0.1, -0.00001, -0.0001);
   //pid.Init(0.12, 0.0002, 0.001);		// For speed = 15
   //pid.Init(0.2, 0.0005, 0.01);		// For speed = 10
 
@@ -102,7 +102,7 @@ int main()
 		  std::cout << "============================================" << std::endl;
 
 
-		  steer_value = - pid.Kp * pid.p_error - pid.Kd * pid.d_error - pid.Ki * pid.i_error;
+		  steer_value = pid.Control(pid.p_error, pid.i_error, pid.d_error);
 
           
           if (steer_value < -1) steer_value = -1;
@@ -114,7 +114,7 @@ int main()
           */
 
           pid2.UpdateError(speed_err);
-          throttle_value =  pid2.Kp * pid2.p_error + pid2.Kd * pid2.d_error + pid2.Ki * pid2.i_error;
+          throttle_value =  pid2.Control(pid2.p_error, pid2.i_error, pid2.d_error);
           if (throttle_value < 0) throttle_value = 0;
           if (throttle_value > 1) throttle_value = 1;
 
